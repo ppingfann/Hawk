@@ -1,13 +1,14 @@
 package main
 
 import (
-	"pod"
-	"service"
+	"k8s/resource/pod"
+	"k8s.io/api/core/v1"
+	"interact_redis"
 )
 
 func main() {
-	pInfo := new(pod.PodInfo)
-	pInfo.GetPodInfo()
-	sInfo := &service.Service{}
-	sInfo.GetServiceInfo()
+	pc := new(pod.PodCtroller)
+	podinfo := pc.GetPodInfo(v1.NamespaceAll,"myweb-1527347769-r7nzw")
+	ir := new(interact_redis.InteractRedis)
+	ir.WriteRedis(podinfo)
 }
