@@ -1,10 +1,13 @@
 package main
 
 import (
-	"sidecar"
+	"pod"
+	"service"
 )
 
 func main() {
-	sidecar.Pod_info()
-	sidecar.Service_info()
+	pInfo := new(pod.PodInfo)
+	pInfo.GetPodInfo()
+	sInfo := &service.Service{}
+	sInfo.GetServiceInfo()
 }

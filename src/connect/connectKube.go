@@ -1,4 +1,4 @@
-package sidecar
+package connect
 
 import (
 	"flag"
@@ -6,7 +6,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 )
 
-func Connect_kube() *kubernetes.Clientset{//connect to cluster which use the config blow
+func ConnectKube() *kubernetes.Clientset{//connect to cluster which use the config blow
 	kubeconfig := flag.String("kubeconfig", "", "absolute path to the kubeconfig file")
 	flag.Parse()
 
@@ -27,4 +27,4 @@ func Connect_kube() *kubernetes.Clientset{//connect to cluster which use the con
 	return Clientset
 }
 
-	var Clientset *kubernetes.Clientset = Connect_kube()
+	var Clientset *kubernetes.Clientset = ConnectKube()
