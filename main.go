@@ -1,20 +1,33 @@
 package main
 
 import (
-	"k8s/resource/pod"
 	"k8s.io/api/core/v1"
-	"interact_redis"
-	"k8s/resource/service"
+	"k8s/resource/controller"
+	"time"
+	"fmt"
 )
 
 func main() {
-	pc := new(pod.PodCtroller)
-	podinfo := pc.GetPodInfo(v1.NamespaceAll,"myweb-1527347769-r7nzw")
-	ir := new(interact_redis.InteractRedis)
-	ir.WritePodRedis(podinfo)
+	ch := make(chan int)
+	go execute(ch)
+	for i:=0; i<10;i++  {
+		fmt.Println("hello")
+	}
+	select {
+	case <- ch:
 
-	sc := new(service.SvcController)
-	svcinfo := sc.GetSvcInfo(v1.NamespaceAll,"mysql")
-	ir1 := new(interact_redis.InteractRedis)
-	ir1.WriteSvcRedis(svcinfo)
+	}
+
+}
+
+func execute(ch chan int)  {
+	for  {
+			pc := new(controller.PodCtroller)
+			sc := new(controller.SvcController)
+			pc.GetPodInfo(v1.NamespaceAll)
+			sc.GetSvcInfo(v1.NamespaceAll)
+
+			time.Sleep(5 * time.Second)
+		}
+	ch <- 1
 }

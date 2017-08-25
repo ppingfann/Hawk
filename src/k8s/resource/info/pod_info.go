@@ -1,4 +1,4 @@
-package pod
+package info
 
 //acquire pod information
 type PodInfo struct{
